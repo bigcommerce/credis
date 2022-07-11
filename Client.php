@@ -321,6 +321,9 @@ class Credis_Client {
     /** @var array */
     protected $tlsOptions = [];
 
+    /** @var array */
+    private $redisOptions = [];
+
 
     /**
      * @var bool
@@ -383,6 +386,22 @@ class Credis_Client {
         if ($this->closeOnDestruct) {
             $this->close();
         }
+    }
+
+    /**
+     * Set redis client option, e.g. Redis::OPT_PREFIX
+     * @param int $option
+     * @param mixed $value
+     * @return bool
+     * @throws CredisException
+     */
+    public function setRedisOption($option, $value)
+    {
+        if ($this->standalone) {
+            throw new CredisException('Unsupported in standalone mode');
+        }
+
+        $this->redisOptions[$option] = $value;
     }
 
     /**
@@ -570,6 +589,10 @@ class Credis_Client {
                 $result = $this->persistent
                   ? $this->redis->pconnect($this->scheme.'://'.$this->host, (int)$this->port, $socketTimeout, $this->persistent, 0, 0.0, $context)
                   : $this->redis->connect($this->scheme.'://'.$this->host, (int)$this->port, $socketTimeout, null, 0, 0.0, $context);
+              }
+
+              foreach ($this->redisOptions as $option => $value) {
+                  $this->redis->setOption($option, $value);
               }
             }
             catch(Exception $e)
