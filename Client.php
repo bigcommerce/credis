@@ -49,8 +49,8 @@ class CredisException extends Exception
  * @method array                       exec()
  * @method string|Credis_Client        flushAll()
  * @method string|Credis_Client        flushDb()
- * @method array|Credis_Client         info(string $section = null)
- * @method bool|array|Credis_Client    config(string $setGet, string $key, string $value = null)
+ * @method array|Credis_Client         info(?string $section = null)
+ * @method bool|array|Credis_Client    config(string $setGet, string $key, ?string $value = null)
  * @method array|Credis_Client         role()
  * @method array|Credis_Client         time()
  * @method int|Credis_Client           dbsize()
@@ -64,7 +64,7 @@ class CredisException extends Exception
  * @method int|Credis_Client           persist(string $key)
  * @method bool|Credis_Client          rename(string $key, string $newKey)
  * @method bool|Credis_Client          renameNx(string $key, string $newKey)
- * @method array|Credis_Client         sort(string $key, string $arg1, string $valueN = null)
+ * @method array|Credis_Client         sort(string $key, string $arg1, ?string $valueN = null)
  * @method int|Credis_Client           ttl(string $key)
  * @method string|Credis_Client        type(string $key)
  * @method string|Credis_Client        unlink(string|array ...$keys)
@@ -82,7 +82,7 @@ class CredisException extends Exception
  * @method false|array|Credis_Client   mGet(array $keys)
  * @method bool|Credis_Client          mSet(array $keysValues)
  * @method int|Credis_Client           mSetNx(array $keysValues)
- * @method bool|Credis_Client          set(string $key, string $value, int | array $options = null)
+ * @method bool|Credis_Client          set(string $key, string $value, int|array|null $options = null)
  * @method int|Credis_Client           setBit(string $key, int $offset, int $value)
  * @method bool|Credis_Client          setEx(string $key, int $seconds, string $value)
  * @method int|Credis_Client           setNx(string $key, string $value)
@@ -90,20 +90,20 @@ class CredisException extends Exception
  * @method int|Credis_Client           strLen(string $key)
  *
  * Sets:
- * @method int|Credis_Client           sAdd(string $key, mixed $value, string $valueN = null)
- * @method int|Credis_Client           sRem(string $key, mixed $value, string $valueN = null)
+ * @method int|Credis_Client           sAdd(string $key, mixed $value, ?string $valueN = null)
+ * @method int|Credis_Client           sRem(string $key, mixed $value, ?string $valueN = null)
  * @method array|Credis_Client         sMembers(string $key)
- * @method array|Credis_Client         sUnion(mixed $keyOrArray, string $valueN = null)
- * @method array|Credis_Client         sInter(mixed $keyOrArray, string $valueN = null)
- * @method array |Credis_Client        sDiff(mixed $keyOrArray, string $valueN = null)
+ * @method array|Credis_Client         sUnion(mixed $keyOrArray, ?string $valueN = null)
+ * @method array|Credis_Client         sInter(mixed $keyOrArray, ?string $valueN = null)
+ * @method array |Credis_Client        sDiff(mixed $keyOrArray, ?string $valueN = null)
  * @method string|Credis_Client        sPop(string $key)
  * @method int|Credis_Client           sCard(string $key)
  * @method int|Credis_Client           sIsMember(string $key, string $member)
  * @method int|Credis_Client           sMove(string $source, string $dest, string $member)
- * @method string|array|Credis_Client  sRandMember(string $key, int $count = null)
- * @method int|Credis_Client           sUnionStore(string $dest, string $key1, string $key2 = null)
- * @method int|Credis_Client           sInterStore(string $dest, string $key1, string $key2 = null)
- * @method int|Credis_Client           sDiffStore(string $dest, string $key1, string $key2 = null)
+ * @method string|array|Credis_Client  sRandMember(string $key, ?int $count = null)
+ * @method int|Credis_Client           sUnionStore(string $dest, string $key1, ?string $key2 = null)
+ * @method int|Credis_Client           sInterStore(string $dest, string $key1, ?string $key2 = null)
+ * @method int|Credis_Client           sDiffStore(string $dest, string $key1, ?string $key2 = null)
  *
  * Hashes:
  * @method bool|int|Credis_Client      hSet(string $key, string $field, string $value)
@@ -145,11 +145,11 @@ class CredisException extends Exception
  * @method int|Credis_Client           zSize(string $key)
  * @method int|Credis_Client           zCount(string $key, mixed $start, mixed $stop)
  * @method int|Credis_Client           zIncrBy(string $key, double $value, string $member)
- * @method array|Credis_Client         zRangeByScore(string $key, mixed $start, mixed $stop, array $args = null)
- * @method array|Credis_Client         zRevRangeByScore(string $key, mixed $start, mixed $stop, array $args = null)
+ * @method array|Credis_Client         zRangeByScore(string $key, mixed $start, mixed $stop, ?array $args = null)
+ * @method array|Credis_Client         zRevRangeByScore(string $key, mixed $start, mixed $stop, ?array $args = null)
  * @method int|Credis_Client           zRemRangeByScore(string $key, mixed $start, mixed $stop)
- * @method array|Credis_Client         zRange(string $key, mixed $start, mixed $stop, array $args = null)
- * @method array|Credis_Client         zRevRange(string $key, mixed $start, mixed $stop, array $args = null)
+ * @method array|Credis_Client         zRange(string $key, mixed $start, mixed $stop, ?array $args = null)
+ * @method array|Credis_Client         zRevRange(string $key, mixed $start, mixed $stop, ?array $args = null)
  * @method int|Credis_Client           zRank(string $key, string $member)
  * @method int|Credis_Client           zRevRank(string $key, string $member)
  * @method int|Credis_Client           zRem(string $key, string $member)
@@ -161,9 +161,9 @@ class CredisException extends Exception
  * @method int|array|Credis_Client     pubsub(string $subCommand, $arg = null)
  *
  * Scripting:
- * @method string|int|Credis_Client    script(string $command, string $arg1 = null)
- * @method string|int|array|bool|Credis_Client eval(string $script, array $keys = null, array $args = null)
- * @method string|int|array|bool|Credis_Client evalSha(string $script, array $keys = null, array $args = null)
+ * @method string|int|Credis_Client    script(string $command, ?string $arg1 = null)
+ * @method string|int|array|bool|Credis_Client eval(string $script, ?array $keys = null, ?array $args = null)
+ * @method string|int|array|bool|Credis_Client evalSha(string $script, ?array $keys = null, ?array $args = null)
  */
 class Credis_Client
 {
@@ -348,7 +348,7 @@ class Credis_Client
      * @param array|null $tlsOptions The TLS/SSL context options. See https://www.php.net/manual/en/context.ssl.php for details
      * @throws CredisException
      */
-    public function __construct($host = '127.0.0.1', $port = 6379, $timeout = null, $persistent = '', $db = 0, $password = null, $username = null, array $tlsOptions = null)
+    public function __construct($host = '127.0.0.1', $port = 6379, $timeout = null, $persistent = '', $db = 0, $password = null, $username = null, ?array $tlsOptions = null)
     {
         $this->host = (string)$host;
         if ($port !== null) {
